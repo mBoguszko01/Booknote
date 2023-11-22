@@ -12,12 +12,16 @@
 </div>
 <div class = "sign-up-wrapper">
     <p class = "main-text">Log in</p>
-        <form class = "sign-up-container" action="/submit" method="POST">
-            <input class = "txt-input" type="text" placeholder="Username">
-            <input class = "txt-input" type="text" placeholder="Password">
-            <input class = "button register-and-login-button" type="submit" value="Log in">
-            <input class = "button  have-and-donthave-account-button" type="submit" value="Don't have account?">
-        </form>
+        <div class = "sign-up-container">
+            <form action="/login" method="POST">
+                <input class = "txt-input" type="text" placeholder="Username" name = "username">
+                <input class = "txt-input" type="text" placeholder="Password" name = "password">
+                <input class = "button register-and-login-button" type="submit" value="Log in">        
+            </form>
+            <form action = "sign_up.ejs" method="GET">
+                <button class = "button  have-and-donthave-account-button">Don't have account?</button>
+            </form>        
+        </div>
 </div>
 <%- include("partials/footer.ejs") %>
 </body>

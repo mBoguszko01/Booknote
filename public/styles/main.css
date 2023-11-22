@@ -206,6 +206,9 @@
     flex-direction: column;
     align-items: center;
 }
+.sign-up-wrapper > a{
+    all: unset;
+}
 .main-text{
     margin-top:10px;
     font-weight: bold;
@@ -221,6 +224,14 @@
     gap: 3vh;
     padding-top: 5vh;
     margin-bottom: 10vh;
+}
+.sign-up-container > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    width: 30vw;
+    gap: 3vh;
 }
 .txt-input{
     border: 1px solid rgb(71, 71, 71);

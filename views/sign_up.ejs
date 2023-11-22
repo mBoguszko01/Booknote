@@ -12,14 +12,19 @@
 </div>
 <div class = "sign-up-wrapper">
     <p class = "main-text">Register</p>
-        <form class = "sign-up-container" action="/submit" method="POST">
-            <input class = "txt-input" type="text" placeholder="Username">
-            <input class = "txt-input" type="text" placeholder="Email">
-            <input class = "txt-input" type="text" placeholder="Password">
-            <input class = "txt-input" type="text" placeholder="Confirm Password">
+    <div class = "sign-up-container">
+        <form action="/register" method="POST">
+            <input class = "txt-input" type="text" placeholder="Username" name = "username">
+            <input class = "txt-input" type="text" placeholder="Email" name = "email">
+            <input class = "txt-input" type="text" placeholder="Password" name = "password">
+            <input class = "txt-input" type="text" placeholder="Confirm Password" name = "confirmPswd">
             <input class = "button register-and-login-button" type="submit" value="Register">
-            <input class = "button  have-and-donthave-account-button" type="submit" value="Have account? Log in">
         </form>
+        <form action = "sign_in.ejs" method="GET">
+            <button class = "button  have-and-donthave-account-button">Have account? Log in</button>
+        </form>        
+    </div>
+    
         
     </div>
 </div>

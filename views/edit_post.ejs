@@ -14,26 +14,26 @@
     <form  action="/creatNewPost" method="POST">
         <div class = "form-group">
             <label class = "info-title">Title:</label>
-            <input class = "new-post-input" type="text" name = "title">
+            <input class = "new-post-input"  type="text" value = "<%=title%>" name = "title">
         </div>
         <div class = "form-group">
             <label class = "info-title">By:</label>
-            <input class = "new-post-input" type="text" name = "author">
+            <input class = "new-post-input" type="text" value = "<%=author%>" name = "author">
         </div>
         <div class = "form-group">
             <label class = "info-title">Finished reading:</label>
             <div style = "display: flex; justify-content: end;">
-                <input class = "new-post-input-short" type="text" placeholder="YYYY/MM/DD" name = "finishedReading">
+                <input class = "new-post-input-short" type="text" placeholder="YYYY/MM/DD" value = "<%=finishedReading%>" name = "finishedReading">
             </div>
         </div>
         <div class = "form-group">
             <label class = "info-title">Rating:</label>
             <div style = "display: flex; justify-content: end;">
-                <input class = "new-post-input-short" type="text" placeholder="XX/10" name = "rating">
+                <input class = "new-post-input-short" type="text" placeholder="XX/10" value = "<%=rating%>" name = "rating">
             </div>
         </div>
         <p class = "new-notes-header">Your Notes</p>
-        <textarea class = "new-notes-input" type="text" placeholder="Write your notes here." name = "notes"></textarea>
+        <textarea class = "new-notes-input" type="text" placeholder="Write your notes here." name = "notes"><%=notes%></textarea>
         <div class = "create-post-buttons-wrapper">
             <input class = "post-button" type="submit" value="Post" name = "post">
             <input class = "cancel-button" type="submit" value="Cancel" name = "cancel">
