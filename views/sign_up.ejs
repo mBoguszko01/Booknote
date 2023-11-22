@@ -1,0 +1,28 @@
+<%- include("partials/header_signup_signin.ejs") %>
+    
+<div class = "breadcrumb-trail">
+    <div class ="breadcrumb-el">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+        <a href = "/" style="text-decoration: none;">Home</a>
+    </div>
+    <div class ="breadcrumb-el">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+        <a href = "sign_up.ejs" style="text-decoration: none;">Registration Page</a>
+    </div>
+</div>
+<div class = "sign-up-wrapper">
+    <p class = "main-text">Register</p>
+        <form class = "sign-up-container" action="/submit" method="POST">
+            <input class = "txt-input" type="text" placeholder="Username">
+            <input class = "txt-input" type="text" placeholder="Email">
+            <input class = "txt-input" type="text" placeholder="Password">
+            <input class = "txt-input" type="text" placeholder="Confirm Password">
+            <input class = "button register-and-login-button" type="submit" value="Register">
+            <input class = "button  have-and-donthave-account-button" type="submit" value="Have account? Log in">
+        </form>
+        
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<%- include("partials/header.ejs") %>
+    
+<div class = "breadcrumb-trail">
+    <div class ="breadcrumb-el">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+        <a href = "/user_home.ejs" style="text-decoration: none;">Main Page</a>
+    </div>
+    <div class ="breadcrumb-el">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
+        <a href = "create_new_post.ejs" style="text-decoration: none;">Add a new book</a>
+    </div>
+</div>
+<div class = "create-post-container">
+    <form  action="/submit" method="POST">
+        <div class = "form-group">
+            <label class = "info-title">Title:</label>
+            <input class = "new-post-input" type="text">
+        </div>
+        <div class = "form-group">
+            <label class = "info-title">By:</label>
+            <input class = "new-post-input" type="text">
+        </div>
+        <div class = "form-group">
+            <label class = "info-title">Finished reading:</label>
+            <div style = "display: flex; justify-content: end;">
+                <input class = "new-post-input-short" type="text" placeholder="YYYY/MM/DD">
+            </div>
+        </div>
+        <div class = "form-group">
+            <label class = "info-title">Rating:</label>
+            <div style = "display: flex; justify-content: end;">
+                <input class = "new-post-input-short" type="text" placeholder="XX/10">
+            </div>
+        </div>
+        <p class = "new-notes-header">Your Notes</p>
+        <textarea class = "new-notes-input" type="text" placeholder="Write your notes here."></textarea>
+        <div class = "create-post-buttons-wrapper">
+            <input class = "post-button" type="submit" value="Post">
+            <input class = "cancel-button" type="submit" value="Cancel">
+        </div>
+
+    </form>
+</div>
+<script src="/textarea_script.js"></script> 
+<%- include("partials/footer.ejs") %>
