@@ -384,20 +384,20 @@
     justify-content: end;
     gap: 15px;
 }
-.create-post-buttons-wrapper > input{
-    width: 100px;
-}
+
 .post-button{
     background-color: #0D6EFD;
     color: white;
     border: none;
     border-radius: 7px;
+    width: 100px;
 }
 .cancel-button{
     background-color: #ffffff;
     color: #626262;
     border: 1px solid #626262;
     border-radius: 7px;
+    width: 100px;
 }
 .profile-info-container{
     width: calc(100%-190px);

@@ -5,8 +5,11 @@
         <a href = "/user_home.ejs" style="text-decoration: none;">Main Page</a>
     </div>
 </div>
-<div class = "add-new-book-container">
-    <a href ="/create_new_post.ejs" style = "text-decoration: none; color: white"><button class = "add-new-book"><p style="font-size: 7vh; font-weight:normal; margin-bottom: 0;">+</p> ADD A NEW BOOOK</button></a>
+
+<div class = "add-new-book-container">`
+    <form action="/create_new_post.ejs" method="post">
+        <button type ="submit" class = "add-new-book"  type="submit"  name ="user_id" value = <%=user_id%>><p style="font-size: 7vh; font-weight:normal; margin-bottom: 0;">+</p> ADD A NEW BOOOK</button>
+    </form>
 </div>
 <div class = "book-container">
     <div class = "top-information">

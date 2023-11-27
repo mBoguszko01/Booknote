@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class = "create-post-container">
-    <form  action="/creatNewPost" method="POST">
+    <form  action="/createNewPost" method="POST">
         <div class = "form-group">
             <label class = "info-title">Title:</label>
             <input class = "new-post-input" type="text" name = "title">
@@ -35,8 +35,8 @@
         <p class = "new-notes-header">Your Notes</p>
         <textarea class = "new-notes-input" type="text" placeholder="Write your notes here." name = "notes"></textarea>
         <div class = "create-post-buttons-wrapper">
-            <input class = "post-button" type="submit" value="Post" name = "post">
-            <input class = "cancel-button" type="submit" value="Cancel" name = "cancel">
+            <button class = "post-button" type="submit" value= "Post <%=user_id%>" name = "user_id">Post</button>
+            <button class = "cancel-button" type="submit" value= "Cancel  <%=user_id%>" name = "user_id">Cancel</button>
         </div>
 
     </form>
