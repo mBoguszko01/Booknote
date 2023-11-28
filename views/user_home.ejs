@@ -23,7 +23,7 @@
                         <div class = "info-title">Title:</div> <div><%=post.title%></div>
                         <div class = "info-title">By:</div> <div><%=post.author%></div>
                         <div class = "info-title">Finished reading:</div> <div><%=post.read%></div>
-                        <div class = "info-title">Rating</div> <div><%=post.rating%></div>
+                        <div class = "info-title">Rating</div> <div><%=post.rating%>/10</div>
                     </div>
                 </div> 
             </div>
@@ -61,4 +61,5 @@
 <%}else{%>
     Nie ma postow
 <%}%>
+
 <%- include("partials/footer.ejs") %>

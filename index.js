@@ -56,7 +56,7 @@ app.post("/login", async (req,res)=>{
     try{
         if(req_pswd == checkUserName[0].password)
         {
-            const userPosts = (await db.query("SELECT * FROM posts WHERE user_id = $1", [checkUserName[0].id])).rows;
+            const userPosts = (await db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes FROM posts WHERE user_id = $1", [checkUserName[0].id])).rows;
             console.log(userPosts);
             res.render("user_home.ejs", 
             {
