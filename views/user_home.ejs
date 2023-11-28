@@ -11,92 +11,54 @@
         <button type ="submit" class = "add-new-book"  type="submit"  name ="user_id" value = <%=user_id%>><p style="font-size: 7vh; font-weight:normal; margin-bottom: 0;">+</p> ADD A NEW BOOOK</button>
     </form>
 </div>
-<div class = "book-container">
-    <div class = "top-information">
-        <img src = "/assets/images/alpha-book.jpg" width="300px">
-        <div class = "book-info-container">
-            <div class = "book-info">
-                <div class = "info-title">Title:</div> <div>Tytul</div>
-                <div class = "info-title">By:</div> <div>Autor</div>
-                <div class = "info-title">Finished reading:</div> <div>19/11/2023</div>
-                <div class = "info-title">Rating</div> <div>10/10</div>
+
+
+<%if(user_posts.length > 0){ %>
+    <%user_posts.forEach((post) => {%>
+        <div class = "book-container">
+            <div class = "top-information">
+                <img src = "/assets/images/alpha-book.jpg" width="300px">
+                <div class = "book-info-container">
+                    <div class = "book-info">
+                        <div class = "info-title">Title:</div> <div><%=post.title%></div>
+                        <div class = "info-title">By:</div> <div><%=post.author%></div>
+                        <div class = "info-title">Finished reading:</div> <div><%=post.read%></div>
+                        <div class = "info-title">Rating</div> <div><%=post.rating%></div>
+                    </div>
+                </div> 
             </div>
-        </div> 
-    </div>
-    <p class = "notes-header">Notes:</p>
-    <div class = "notes-container">
-        <div class = notes>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed nisi nec lectus aliquet volutpat ac at ipsum. Nullam imperdiet a augue aliquet euismod. Nunc volutpat  
-                Integer risus est, interdum in odio ac, sollicitudin facilisis tellus. Integer mi mauris, commodo et leo nec, imperdiet convallis ex. Maecenas et sapien vitae metus fermentum semper vitae et tellus. Vivamus vitae erat et lacus auctor porttitor. Duis molestie arcu ipsum, eu aliquet arcu iaculis nec. Duis sagittis nisl non iaculis venenatis. Cras diam ligula, tincidunt eget sodales id, porta at magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean rutrum pharetra nibh non volutpat. Nunc dapibus commodo nisi, et tempor metus ultricies eu. Sed sed consectetur urna.
-                Vivamus dapibus feugiat massa, ac viverra erat commodo vitae. Maecenas turpis quam, interdum sit amet mauris ac, faucibus tincidunt tortor. Cras interdum eu dui vitae facilisis. Praesent pharetra lorem tellus, sit amet elementum tellus dignissim vel. Pellentesque eu diam eu eros tempus iaculis. Suspendisse lorem magna, posuere sit amet elementum auctor, pretium sed metus. Morbi sodales magna nisi, id lobortis elit pulvinar non. Curabitur vel convallis nibh. Nulla eget semper lectus. Phasellus iaculis blandit metus quis mattis. Donec in augue purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-            </p>
-          
-            <div class = "d-flex justify-content-end gap-2 mb-3">
-                <form action = "/edit_post" method="POST">
-                    <button class="btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
-                        </svg>
-                         Edit
-                    </button>
-                </form>   
-                <form action = "/del_post" method="POST">
-                    <button class="btn btn-outline-danger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
-                        </svg>
-                        Delete
-                    </button>
-                </form> 
+            <p class = "notes-header">Notes:</p>
+            <div class = "notes-container">
+                <div class = notes>
+                    <p>
+                        <%=post.notes%>
+                    </p>
+                
+                    <div class = "d-flex justify-content-end gap-2 mb-3">
+                        <form action = "/edit_post" method="POST">
+                            <button class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
+                                </svg>
+                                Edit
+                            </button>
+                        </form>   
+                        <form action = "/del_post" method="POST">
+                            <button class="btn btn-outline-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
+                                </svg>
+                                Delete
+                            </button>
+                        </form> 
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    
-</div>
-<hr class = "book-separator">
-<div class = "book-container">
-    <div class = "top-information">
-        <img src = "/assets/images/alpha-book.jpg" width="300px">
-        <div class = "book-info-container">
-            <div class = "book-info">
-                <div class = "info-title">Title:</div> <div>Tytul</div>
-                <div class = "info-title">By:</div> <div>Autor</div>
-                <div class = "info-title">Finished reading:</div> <div>19/11/2023</div>
-                <div class = "info-title">Rating</div> <div>10/10</div>
-            </div>
-        </div> 
-    </div>
-    <p class = "notes-header">Notes:</p>
-    <div class = "notes-container">
-        <div class = notes>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed nisi nec lectus aliquet volutpat ac at ipsum. Nullam imperdiet a augue aliquet euismod. Nunc volutpat  
-                Integer risus est, interdum in odio ac, sollicitudin facilisis tellus. Integer mi mauris, commodo et leo nec, imperdiet convallis ex. Maecenas et sapien vitae metus fermentum semper vitae et tellus. Vivamus vitae erat et lacus auctor porttitor. Duis molestie arcu ipsum, eu aliquet arcu iaculis nec. Duis sagittis nisl non iaculis venenatis. Cras diam ligula, tincidunt eget sodales id, porta at magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean rutrum pharetra nibh non volutpat. Nunc dapibus commodo nisi, et tempor metus ultricies eu. Sed sed consectetur urna.
-                Vivamus dapibus feugiat massa, ac viverra erat commodo vitae. Maecenas turpis quam, interdum sit amet mauris ac, faucibus tincidunt tortor. Cras interdum eu dui vitae facilisis. Praesent pharetra lorem tellus, sit amet elementum tellus dignissim vel. Pellentesque eu diam eu eros tempus iaculis. Suspendisse lorem magna, posuere sit amet elementum auctor, pretium sed metus. Morbi sodales magna nisi, id lobortis elit pulvinar non. Curabitur vel convallis nibh. Nulla eget semper lectus. Phasellus iaculis blandit metus quis mattis. Donec in augue purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-            </p>
             
-            <div class = "d-flex justify-content-end gap-2 mb-3">
-                <form action = "/edit_post" method="POST">
-                    <button class="btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
-                        </svg>
-                         Edit
-                    </button>
-                </form>   
-                <form action = "/del_post" method="POST">
-                    <button class="btn btn-outline-danger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
-                        </svg>
-                        Delete
-                    </button>
-                </form> 
-            </div>
         </div>
-    </div>
-    
-</div>
-<hr class = "book-separator">
+        <hr class = "book-separator">
+        <%})%>
+<%}else{%>
+    Nie ma postow
+<%}%>
 <%- include("partials/footer.ejs") %>

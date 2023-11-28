@@ -48,19 +48,22 @@ app.get("/settings.ejs", (req,res)=>{
 app.post("/login", async (req,res)=>{
     const req_userName = req.body.username;
     const req_pswd = req.body.password;
+    const req_userId = req.body.id;
+    console.log(req.body);
 
     const checkUserName = (await db.query("SELECT * FROM users WHERE user_name = $1", [req_userName])).rows;
+
     try{
         if(req_pswd == checkUserName[0].password)
         {
+            const userPosts = (await db.query("SELECT * FROM posts WHERE user_id = $1", [checkUserName[0].id])).rows;
+            console.log(userPosts);
             res.render("user_home.ejs", 
             {
                 user_id: checkUserName[0].id,
                 user_user_name: checkUserName[0].user_name,
-                user_email: checkUserName[0].email,
-                user_user_since: checkUserName[0].user_since,
                 user_profile_picture: checkUserName[0].profile_picture,
-                user_books_read: checkUserName[0].books_read
+                user_posts: userPosts
             });
         }
         else{
