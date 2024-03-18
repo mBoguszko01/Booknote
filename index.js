@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 import pg from "pg";
+import session from "express-session"
 
 const app = express();
 const db = new pg.Client({
@@ -12,10 +13,18 @@ const db = new pg.Client({
     port: 5432,
 })
 const port = 3000;
+const OPEN_LIBRARY_API_URL = "https://openlibrary.org/search.json?";
+
 db.connect();
 
-app.use(express.static('public'));
 
+
+app.use(express.static('public'));
+app.use(session({
+    secret: 'tralala',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req,res)=>{
@@ -29,12 +38,15 @@ app.get("/sign_in.ejs", (req,res)=>{
     res.render("sign_in.ejs");
 })
 app.get("/user_home.ejs",(req,res)=>{
-    res.render("user_home.ejs")
+    res.render("user_home.ejs", {
+        user_id: req.session.userID,
+        user_posts: req.session.userPosts
+    })
 })
 app.post("/create_new_post.ejs", async (req,res)=>{
-    console.log(req.body);  
+    console.log(req.session.userID);  
     res.render("create_new_post.ejs",{
-        user_id: req.body.user_id
+        user_id: req.session.userID
     })
 })
 
@@ -48,22 +60,19 @@ app.get("/settings.ejs", (req,res)=>{
 app.post("/login", async (req,res)=>{
     const req_userName = req.body.username;
     const req_pswd = req.body.password;
-    const req_userId = req.body.id;
-    console.log(req.body);
 
     const checkUserName = (await db.query("SELECT * FROM users WHERE user_name = $1", [req_userName])).rows;
-
     try{
         if(req_pswd == checkUserName[0].password)
         {
-            const userPosts = (await db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes FROM posts WHERE user_id = $1", [checkUserName[0].id])).rows;
-            console.log(userPosts);
+            
+            req.session.userID = checkUserName[0].id;
+            req.session.userPosts = req.session.userPosts = (await db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes , img_url FROM posts WHERE user_id = $1", [req.session.userID])).rows;
+            console.log(req.session.userPosts);
             res.render("user_home.ejs", 
             {
-                user_id: checkUserName[0].id,
-                user_user_name: checkUserName[0].user_name,
-                user_profile_picture: checkUserName[0].profile_picture,
-                user_posts: userPosts
+                user_id: req.session.userID,
+                user_posts: req.session.userPosts
             });
         }
         else{
@@ -100,33 +109,76 @@ app.post("/register", async (req,res)=>{
     
 })
 app.post("/createNewPost", async (req,res)=>{
-    const userId = getUserId(req.body.user_id);
+    const userId = req.session.userID;
     const title = req.body.title;
     const author = req.body.author;
     const finishedReading = req.body.finishedReading;
     const rating = req.body.rating;
     const notes = req.body.notes;
+    
     console.log(req.body);
-    try{
-        await db.query("INSERT INTO posts (user_id, title, author, rating, read, notes) VALUES ($1, $2, $3, $4, $5, $6)",[userId, title, author, rating,finishedReading ,notes]);
-        console.log("Dodalismy post");
-    }catch(error){
-        console.log(error);
-        console.log("Problemito");
+    if(req.body.decision === 'Post'){
+        try{
+            const response = await axios.get(generateBookInfoLink(title));
+            const coverEditionKey = response.data.docs[0].cover_edition_key;
+            const imgURL = `https://covers.openlibrary.org/b/olid/${coverEditionKey}-L.jpg`;
+            const finalImgURL = (await axios.head(imgURL, { maxRedirects: 5 })).request.res.responseUrl;
+            console.log(finalImgURL);
+            await db.query("INSERT INTO posts (user_id, title, author, rating, read, notes,img_url) VALUES ($1, $2, $3, $4, $5, $6, $7)",[userId, title, author, rating,finishedReading ,notes,finalImgURL]);
+            console.log("Dodalismy post");
+        }catch(error){
+            console.log(error);
+            console.log("Problemito");
+        }
     }
-    res.render("user_home.ejs",{
-        user_id: userId
+
+    req.session.userPosts = (await db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes , img_url FROM posts WHERE user_id = $1", [req.session.userID])).rows;
+    console.log(req.session.userPosts);
+    res.render("user_home.ejs", 
+    {
+            user_id: req.session.userID,
+            user_posts: req.session.userPosts
     });
 })
-app.post("/edit_post", (req,res)=>{
-    console.log(req.body);
+app.post("/edit_post", async (req,res)=>{
+    console.log("Edytujemy posta");
+    req.session.editPostId = req.body.edit_post_id;
+    const postInfo = (await db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes FROM posts WHERE id = $1", [req.body.edit_post_id])).rows;
     res.render("edit_post.ejs", 
     {
-        title: req.body.title,
-        author: req.body.author,
-        finishedReading: req.body.finishedReading,
-        rating: req.body.rating,
-        notes: req.body.notes
+        title: postInfo[0].title,
+        author: postInfo[0].author,
+        finishedReading: postInfo[0].read,
+        rating: postInfo[0].rating,
+        notes:postInfo[0].notes
+    });
+})
+app.post("/saveChangedPost", async (req,res)=>{
+    if(req.body.decision === 'Save Changes'){
+        const response = await axios.get(generateBookInfoLink(req.body.title));
+        const coverEditionKey = response.data.docs[0].cover_edition_key;
+        const imgURL = `https://covers.openlibrary.org/b/olid/${coverEditionKey}-L.jpg`;
+        const finalImgURL = (await axios.head(imgURL, { maxRedirects: 5 })).request.res.responseUrl;
+        await db.query("UPDATE posts SET title = $1, author = $2, rating = $3, read = $4, notes = $5 ,img_url = $6 WHERE id = $7",[req.body.title, req.body.author, req.body.rating, req.body.finishedReading, req.body.notes,finalImgURL,req.session.editPostId]);
+    }
+    req.session.userPosts = (await db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes , img_url FROM posts WHERE user_id = $1", [req.session.userID])).rows;
+    res.render("user_home.ejs", 
+    {
+        user_id: req.session.userID,
+        user_posts: req.session.userPosts
+    });
+
+})
+app.post("/del_post", async (req,res)=>{
+    const deleteId = req.body.delete_post_id;
+    await db.query("DELETE FROM posts WHERE id = $1", [deleteId]);
+    console.log((db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes FROM posts WHERE user_id = $1", [req.session.userID])).rows);
+    req.session.userPosts = (await db.query("SELECT id, user_id, title, author, rating, TO_CHAR(read, 'Mon dd, yyyy') AS read, notes , img_url FROM posts WHERE user_id = $1", [req.session.userID])).rows;
+    console.log(req.session.userPosts);
+    res.render("user_home.ejs", 
+    {
+        user_id: req.session.userID,
+        user_posts: req.session.userPosts
     });
 })
 app.listen(port, ()=>{
@@ -143,7 +195,9 @@ class User {
         this.booksRead = booksRead;
     }
 }
-function getUserId(reqBody){
-    const separeted = reqBody.split(" ");
-    return separeted[1];
+
+function generateBookInfoLink(title)
+{
+    title = title.replace(/\s+/g,'+');
+    return `https://openlibrary.org/search.json?q=${title}&fields=key,title,author,editions,editions.key,editions.title,editions.ebook_access,editions.language,cover_edition_key&lang=eng&limit=1`
 }

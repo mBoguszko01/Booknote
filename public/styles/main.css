@@ -75,6 +75,12 @@
     font-weight: bold;
     margin-top: 40px;
 }
+.no-photo-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .br-styling{
     display: block;
     content: "";
@@ -434,7 +440,7 @@
     grid-row-gap: 30px;
 }
 .profile-about-me > .ab-me{
-    width: 100%;
+    width: auto;
     margin-left: calc(calc(100%/4) - 125px);
     font-size: 36px;
     text-decoration: underline;

@@ -11,32 +11,32 @@
     </div>
 </div>
 <div class = "create-post-container">
-    <form  action="/creatNewPost" method="POST">
+    <form  action="/saveChangedPost" method="POST">
         <div class = "form-group">
             <label class = "info-title">Title:</label>
-            <input class = "new-post-input"  type="text" value = "<%=title%>" name = "title">
+            <input class = "new-post-input"  type="text" value = "<%=title%>" name = "title" placeholder="<%=title%>" style = "color:#666666">
         </div>
         <div class = "form-group">
             <label class = "info-title">By:</label>
-            <input class = "new-post-input" type="text" value = "<%=author%>" name = "author">
+            <input class = "new-post-input" type="text" value = "<%=author%>" name = "author" style = "color:#666666">
         </div>
         <div class = "form-group">
             <label class = "info-title">Finished reading:</label>
             <div style = "display: flex; justify-content: end;">
-                <input class = "new-post-input-short" type="text" placeholder="YYYY/MM/DD" value = "<%=finishedReading%>" name = "finishedReading">
+                <input class = "new-post-input-short" type="text"  value = "<%=finishedReading%>" name = "finishedReading" style = "color:#666666">
             </div>
         </div>
         <div class = "form-group">
             <label class = "info-title">Rating:</label>
             <div style = "display: flex; justify-content: end;">
-                <input class = "new-post-input-short" type="text" placeholder="XX/10" value = "<%=rating%>" name = "rating">
+                <input class = "new-post-input-short" type="text"  value = "<%=rating%>" name = "rating" style = "color:#666666">
             </div>
         </div>
         <p class = "new-notes-header">Your Notes</p>
-        <textarea class = "new-notes-input" type="text" placeholder="Write your notes here." name = "notes"><%=notes%></textarea>
+        <textarea class = "new-notes-input" type="text" placeholder="Write your notes here." name = "notes" style = "color:#666666"><%=notes%></textarea>
         <div class = "create-post-buttons-wrapper">
-            <input class = "post-button" type="submit" value="Post" name = "post">
-            <input class = "cancel-button" type="submit" value="Cancel" name = "cancel">
+            <button class = "post-button" type="submit" value= "Save Changes" name = "decision" style = "width: auto;">Save Changes</button>
+            <button class = "cancel-button" type="submit" value= "Cancel" name = "decision" style = "width: auto;">Cancel</button>
         </div>
 
     </form>
