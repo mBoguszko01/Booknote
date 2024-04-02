@@ -199,5 +199,5 @@ class User {
 function generateBookInfoLink(title)
 {
     title = title.replace(/\s+/g,'+');
-    return `https://openlibrary.org/search.json?q=${title}&fields=key,title,author,editions,editions.key,editions.title,editions.ebook_access,editions.language,cover_edition_key&lang=eng&limit=1`
+    return `${OPEN_LIBRARY_API_URL}q=${title}&fields=key,title,author,editions,editions.key,editions.title,editions.ebook_access,editions.language,cover_edition_key&lang=eng&limit=1`
 }
