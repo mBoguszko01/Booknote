@@ -6,9 +6,9 @@
     </div>
 </div>
 
-<div class = "add-new-book-container">`
+<div class = "add-new-book-container">
     <form action="/create_new_post.ejs" method="post">
-        <button type ="submit" class = "add-new-book"  type="submit"  name ="user_id" value = <%=user_id%>><p style="font-size: 7vh; font-weight:normal; margin-bottom: 0;">+</p> ADD A NEW BOOOK</button>
+        <button type ="submit" class = "add-new-book"  type="submit"  name ="user_id" value = <%=user_id%>><p class = "plus-icon">+</p> ADD A NEW BOOOK</button>
     </form>
 </div>
 
@@ -18,9 +18,9 @@
         <div class = "book-container">
             <div class = "top-information">
                 <%if (post.img_url != "https://covers.openlibrary.org/b/olid/undefined-L.jpg"){%>
-                    <img src = "<%=post.img_url%>" width="300px">
+                    <img src = "<%=post.img_url%>">
                 <%}else{%>
-                    <img src = "assets/images/cover_not_available.jpg" width="300px">
+                    <img src = "assets/images/cover_not_available.jpg">
                 <%}%>
                 <div class = "book-info-container">
                     <div class = "book-info">
