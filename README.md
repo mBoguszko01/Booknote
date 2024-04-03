@@ -1,16 +1,16 @@
 # BookNote
-BookNote is a web application prototype that allows users to store the information about the books they have read, give ratings and write notes.
+BookNote is a web application prototype that allows users to store information about the books they have read, give ratings, and write notes.
 ## IMPORTANT
-Application is a prototype. It runs on your machine localy and does not have many crucial elements that real web app should have. <br>
-It was created for studying purposes.
+The application is a prototype. It runs on your machine locally and does not have many crucial elements that a real web app should have. <br>
+It was created for study purposes.
 ## Features
 * Sign up and Sign in system
 * Adding new post
-  * Application is connecting to the public [Open Library](https://openlibrary.org/) API in order to get the book covers.
+  * The application connects to the public [Open Library](https://openlibrary.org/) API in order to get the book covers.
 * Editing post
 * Deleting post
 
-## Installation and how to launch
+## Installation and Launch
 You must have [Postgresql](https://www.postgresql.org/) installed
 <br>Then 
 ```
