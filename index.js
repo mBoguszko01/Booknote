@@ -17,8 +17,6 @@ const OPEN_LIBRARY_API_URL = "https://openlibrary.org/search.json?";
 
 db.connect();
 
-
-
 app.use(express.static('public'));
 app.use(session({
     secret: 'tralala',
