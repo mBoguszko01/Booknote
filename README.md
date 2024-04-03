@@ -6,6 +6,15 @@ It was created for studying purposes.
 ## Features
 * Sign up and Sign in system
 * Adding new post
-  * Application is connecting to public [Open Library](https://openlibrary.org/) API in order to get the book covers.
+  * Application is connecting to the public [Open Library](https://openlibrary.org/) API in order to get the book covers.
 * Editing post
 * Deleting post
+
+## Installation and how to launch
+You must have [Postgresql](https://www.postgresql.org/) installed
+<br>Then 
+```
+npm i
+nodemon index.js
+```
+* Application is now running on: `http://localhost:3000`
